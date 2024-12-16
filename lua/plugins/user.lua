@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
@@ -13,6 +13,44 @@ return {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    event = "User AstroFile",
+    cmd = { "TodoQuickFix" },
+    keys = {
+      { "<Leader>T", "<cmd>TodoTelescope<cr>", desc = "Open TODOs in Telescope" },
+    },
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {
+        --Configuration here, or leave empty to use defaults
+      }
+    end,
+  },
+
+  {
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    config = function() require("oil").setup {} end,
+    keys = vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" }),
   },
 
   -- == Examples of Overriding Plugins ==
